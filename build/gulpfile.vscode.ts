@@ -31,7 +31,7 @@ import minimist from 'minimist';
 import { compileBuildWithoutManglingTask, compileBuildWithManglingTask } from './gulpfile.compile.ts';
 import { compileNonNativeExtensionsBuildTask, compileNativeExtensionsBuildTask, compileAllExtensionsBuildTask, compileExtensionMediaBuildTask, cleanExtensionsBuildTask } from './gulpfile.extensions.ts';
 import { promisify } from 'util';
-import globCallback from 'glob';
+import { glob as globCallback } from 'glob';
 import rceditCallback from 'rcedit';
 
 

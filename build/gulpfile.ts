@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { EventEmitter } from 'events';
-import glob from 'glob';
+import { sync as globSync } from 'glob';
 import gulp from 'gulp';
 import { createRequire } from 'node:module';
 import { monacoTypecheckTask /* , monacoTypecheckWatchTask */ } from './gulpfile.editor.ts';
@@ -52,7 +52,8 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 // Load all the gulpfiles only if running tasks other than the editor tasks
-glob.sync('gulpfile.*.ts', { cwd: import.meta.dirname })
+globSync('gulpfile.*.ts', { cwd: import.meta.dirname })
+
 	.forEach(f => {
 		return require(`./${f}`);
 	});

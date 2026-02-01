@@ -24,7 +24,7 @@ import gunzip from 'gulp-gunzip';
 import { untar } from './lib/util.ts';
 import File from 'vinyl';
 import * as fs from 'fs';
-import glob from 'glob';
+import { sync as globSync } from 'glob';
 import { compileBuildWithManglingTask } from './gulpfile.compile.ts';
 import { cleanExtensionsBuildTask, compileNonNativeExtensionsBuildTask, compileNativeExtensionsBuildTask, compileExtensionMediaBuildTask } from './gulpfile.extensions.ts';
 import { vscodeWebResourceIncludes, createVSCodeWebFileContentMapper } from './gulpfile.vscode.web.ts';
@@ -277,7 +277,7 @@ function packageTask(type: string, platform: string, arch: string, sourceFolderN
 				}
 			}
 		};
-		const localWorkspaceExtensions = glob.sync('extensions/*/package.json')
+		const localWorkspaceExtensions = globSync('extensions/*/package.json')
 			.filter((extensionPath) => {
 				if (type === 'reh-web') {
 					return true; // web: ship all extensions for now

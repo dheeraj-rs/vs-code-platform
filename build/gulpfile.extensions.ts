@@ -17,7 +17,7 @@ import { getVersion } from './lib/getVersion.ts';
 import * as task from './lib/task.ts';
 import watcher from './lib/watch/index.ts';
 import { createReporter } from './lib/reporter.ts';
-import glob from 'glob';
+import { glob as globFn } from 'glob';
 import plumber from 'gulp-plumber';
 import * as ext from './lib/extensions.ts';
 import * as tsb from './lib/tsb/index.ts';
@@ -265,7 +265,7 @@ gulp.task(watchWebExtensionsTask);
 
 async function buildWebExtensions(isWatch: boolean) {
 	const extensionsPath = path.join(root, 'extensions');
-	const webpackConfigLocations = await nodeUtil.promisify(glob)(
+	const webpackConfigLocations = await nodeUtil.promisify(globFn)(
 		path.join(extensionsPath, '**', 'extension-browser.webpack.config.js'),
 		{ ignore: ['**/node_modules'] }
 	);

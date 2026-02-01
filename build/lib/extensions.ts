@@ -6,7 +6,7 @@
 import es from 'event-stream';
 import fs from 'fs';
 import cp from 'child_process';
-import glob from 'glob';
+import { sync as globSync } from 'glob';
 import gulp from 'gulp';
 import path from 'path';
 import crypto from 'crypto';
@@ -133,7 +133,7 @@ function fromLocalWebpack(extensionPath: string, webpackConfigFileName: string, 
 
 		// check for a webpack configuration files, then invoke webpack
 		// and merge its output with the files stream.
-		const webpackConfigLocations = (glob.sync(
+		const webpackConfigLocations = (globSync(
 			path.join(extensionPath, '**', webpackConfigFileName),
 			{ ignore: ['**/node_modules'] }
 		) as string[]);
@@ -338,6 +338,9 @@ const excludedExtensions = [
 	'vscode-test-resolver',
 	'ms-vscode.node-debug',
 	'ms-vscode.node-debug2',
+	'ms-vscode.js-debug-companion',
+	'ms-vscode.js-debug',
+	'ms-vscode.vscode-js-profile-table',
 ];
 
 const marketplaceWebExtensionsExclude = new Set([
@@ -432,7 +435,7 @@ export function packageAllLocalExtensionsStream(forWeb: boolean, disableMangle: 
 function doPackageLocalExtensionsStream(forWeb: boolean, disableMangle: boolean, native: boolean): Stream {
 	const nativeExtensionsSet = new Set(nativeExtensions);
 	const localExtensionsDescriptions = (
-		(glob.sync('extensions/*/package.json') as string[])
+		(globSync('extensions/*/package.json') as string[])
 			.map(manifestPath => {
 				const absoluteManifestPath = path.join(root, manifestPath);
 				const extensionPath = path.dirname(path.join(root, manifestPath));

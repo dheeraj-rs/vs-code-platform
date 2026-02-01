@@ -175,6 +175,7 @@ for (const dir of dirs) {
 		if (process.env['CXX']) { opts.env!['CXX'] = 'g++'; }
 		if (process.env['CXXFLAGS']) { opts.env!['CXXFLAGS'] = ''; }
 		if (process.env['LDFLAGS']) { opts.env!['LDFLAGS'] = ''; }
+		opts.env!['CXXFLAGS'] = '-std=c++20';
 
 		setNpmrcConfig('build', opts.env!);
 		npmInstall('build', opts);
